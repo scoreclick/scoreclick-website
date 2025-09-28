@@ -65,37 +65,7 @@ export default function ContactSection() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
-          {/* Informações de Contato */}
-          <div className="space-y-6">            
-            <div className="grid gap-0">
-              {contactInfo.map((contact, index) => {
-                const IconComponent = contact.icon
-                return (
-                  <a
-                    key={index}
-                    href={contact.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${contact.bgColor} ${contact.textColor} p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl group rounded-none block cursor-pointer`}
-                  >
-                    <div className="flex items-center space-x-4">
-                      <div className={`p-3 rounded-lg ${contact.iconBgColor}`}>
-                        <IconComponent className={`w-6 h-6 ${contact.iconColor}`} />
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium font-[var(--font-primary)]">
-                          {contact.label}
-                        </p>
-                        <p className={`${contact.textColor} font-[var(--font-secondary)]`}>
-                          {contact.value}
-                        </p>
-                      </div>
-                    </div>
-                  </a>
-                )
-              })}
-            </div>
-          </div>
+          
 
           {/* Botão WhatsApp */}
           <div className="flex flex-col items-center justify-center space-y-6">
@@ -140,6 +110,38 @@ export default function ContactSection() {
               </p>
             </div>
           </div>
+          {/* Informações de Contato */}
+          <div className="space-y-6">            
+            <div className="grid gap-0">
+              {contactInfo.map((contact, index) => {
+                const IconComponent = contact.icon
+                return (
+                  <a
+                    key={index}
+                    href={contact.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${contact.bgColor} ${contact.textColor} p-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl group rounded-none block cursor-pointer`}
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className={`p-3 rounded-lg ${contact.iconBgColor}`}>
+                        <IconComponent className={`w-6 h-6 ${contact.iconColor}`} />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium font-[var(--font-primary)]">
+                          {contact.label}
+                        </p>
+                        <p className={`${contact.textColor} font-[var(--font-secondary)]`}>
+                          {contact.value}
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                )
+              })}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
