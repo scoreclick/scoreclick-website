@@ -1,0 +1,287 @@
+---
+description: "Basic theme information to follow on this project."
+globs:
+  - "**/*.{js,jsx,ts,tsx}"
+alwaysApply: true
+---
+
+## Paleta de Cores da Marca
+Use exclusivamente essas cores em todos os designs e componentes:
+
+### Cores Principais
+- **Verde Escuro**: `#068258` - Cor principal da marca, use para elementos de destaque
+- **Verde Médio**: `#04a668` - Cor secundária, use para botões e links
+- **Verde Claro**: `#00dd81` - Cor de accent, use para hover states e highlights
+- **Cinza Claro**: `#e5edea` - Cor de background e elementos sutis
+- **Cinza Escuro**: `#181717` - Cor de texto principal e elementos de contraste
+
+### Gradientes da Marca
+- **Gradient Principal**: `linear-gradient(135deg, #068258, #00dd81, #04a668)`
+- **Gradient Secundário**: `linear-gradient(135deg, #e5edea, #dddada)`
+
+## Diretrizes de Design
+
+### Tipografia
+- **Fonte Principal**: Axiforma - Use para headings, títulos e elementos de destaque
+- **Fonte Secundária**: Exo 2 - Use para body text, parágrafos e textos corridos
+- Hierarquia de texto clara com cores da marca
+- Texto principal: `#181717`
+- Texto secundário: `#068258`
+
+#### Variações de Peso Disponíveis
+**Axiforma:**
+- Thin (100)
+- ExtraLight (200) 
+- Light (300)
+- Regular (400)
+- Medium (500)
+- SemiBold (600)
+- Bold (700)
+- ExtraBold (800)
+- Black (900)
+
+**Exo 2:**
+- Thin (100)
+- ExtraLight (200)
+- Light (300)
+- Regular (400)
+- Medium (500)
+- SemiBold (600)
+- Bold (700)
+- ExtraBold (800)
+- Black (900)
+
+#### Hierarquia Tipográfica
+- **H1**: Axiforma Bold (700) - 2.5rem (40px)
+- **H2**: Axiforma SemiBold (600) - 2rem (32px)
+- **H3**: Axiforma Medium (500) - 1.5rem (24px)
+- **H4**: Axiforma Regular (400) - 1.25rem (20px)
+- **Body Large**: Exo 2 Regular (400) - 1.125rem (18px)
+- **Body**: Exo 2 Regular (400) - 1rem (16px)
+- **Body Small**: Exo 2 Light (300) - 0.875rem (14px)
+- **Caption**: Exo 2 Light (300) - 0.75rem (12px)
+
+### Botões e Elementos Interativos
+- **Botão Primário**: Background `#04a668`, hover `#068258`
+- **Botão Secundário**: Background transparente, border `#04a668`, hover background `#e5edea`
+- **Botão de Accent**: Use o gradient principal
+- Border radius: 8px para consistência
+
+### Layout e Espaçamento
+- Use grid systems e flexbox para layouts responsivos
+- Espaçamento consistente baseado em múltiplos de 8px (8, 16, 24, 32, 48px)
+- Containers com max-width: 1200px
+- Padding interno: 20px em mobile, 40px em desktop
+
+### Componentes de UI
+
+#### Cards
+- Background: `#ffffff` ou `#e5edea`
+- Border: `1px solid #e5edea`
+- Box-shadow: `0 2px 8px rgba(6, 130, 88, 0.1)`
+- Border-radius: 12px
+
+#### Inputs e Forms
+- Border: `2px solid #e5edea`
+- Focus border: `#04a668`
+- Background: `#ffffff`
+- Placeholder text: `#068258` com opacity 0.6
+
+#### Navigation
+- Background: `#ffffff` com backdrop-blur
+- Active link: `#04a668`
+- Hover: `#e5edea`
+
+### Estados de Interação
+- **Hover**: Transição suave de 0.3s, cores mais escuras da paleta
+- **Active**: Usar `#068258`
+- **Focus**: Outline `2px solid #00dd81`
+- **Disabled**: Opacity 0.5
+
+### Iconografia
+- Use ícones outline ou filled consistentemente
+- Cor padrão: `#068258`
+- Tamanhos: 16px, 20px, 24px, 32px
+
+## Regras de Implementação
+
+### CSS Custom Properties
+Sempre defina essas variáveis CSS no início:
+
+```css
+:root {
+  /* Cores da Marca */
+  --brand-green-dark: #068258;
+  --brand-green-medium: #04a668;
+  --brand-green-light: #00dd81;
+  --brand-gray-light: #e5edea;
+  --brand-gray-dark: #181717;
+  --brand-gradient-primary: linear-gradient(135deg, #068258, #00dd81, #04a668);
+  --brand-gradient-secondary: linear-gradient(135deg, #e5edea, #dddada);
+  
+  /* Tipografia */
+  --font-primary: 'Axiforma', sans-serif;
+  --font-secondary: 'Exo 2', sans-serif;
+  
+  /* Tamanhos de Fonte */
+  --font-size-h1: 2.5rem;    /* 40px */
+  --font-size-h2: 2rem;      /* 32px */
+  --font-size-h3: 1.5rem;    /* 24px */
+  --font-size-h4: 1.25rem;   /* 20px */
+  --font-size-body-lg: 1.125rem; /* 18px */
+  --font-size-body: 1rem;    /* 16px */
+  --font-size-body-sm: 0.875rem; /* 14px */
+  --font-size-caption: 0.75rem;  /* 12px */
+  
+  /* Pesos de Fonte */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+}
+```
+
+### Responsividade
+- Mobile first approach
+- Breakpoints: 768px (tablet), 1024px (desktop)
+- Use CSS Grid e Flexbox para layouts adaptativos
+
+### Acessibilidade
+- Contraste mínimo WCAG AA
+- Foco visível em todos os elementos interativos
+- Alt text em imagens
+- Semântica HTML adequada
+
+## Componentes Obrigatórios
+
+### Header
+- Logo à esquerda
+- Navegação centralizada ou à direita
+- Background com gradient ou cor sólida da marca
+- Sticky behavior
+
+### Footer
+- Background `#181717`
+- Texto `#e5edea`
+- Links `#00dd81`
+
+### Loading States
+- Use a cor `#04a668` para spinners
+- Skeleton loading com `#e5edea`
+
+### Error States
+- Mantenha a paleta da marca, use `#068258` para mensagens de erro importantes
+
+## Exemplos de Uso
+
+### Tipografia
+```css
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  color: var(--brand-gray-dark);
+}
+
+body, p, span, div {
+  font-family: var(--font-secondary);
+  color: var(--brand-gray-dark);
+}
+
+.heading-1 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-h1);
+}
+
+.heading-2 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-h2);
+}
+
+.body-text {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+}
+
+.caption {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-caption);
+}
+```
+
+### Botão Primário
+```css
+.btn-primary {
+  background: var(--brand-green-medium);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-medium);
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--brand-green-dark);
+}
+```
+
+### Card Component
+```css
+.card {
+  background: white;
+  border: 1px solid var(--brand-gray-light);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(6, 130, 88, 0.1);
+  padding: 24px;
+}
+
+.card-title {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-h3);
+  color: var(--brand-gray-dark);
+  margin-bottom: 16px;
+}
+
+.card-content {
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body);
+  color: var(--brand-gray-dark);
+  line-height: 1.6;
+}
+```
+
+## Instruções para o Cursor AI
+
+Ao criar qualquer componente ou página:
+
+1. **SEMPRE** use apenas as cores definidas nesta paleta
+2. **NUNCA** invente cores fora da paleta da marca
+3. **TIPOGRAFIA**: Use Axiforma para títulos/headings e Exo 2 para textos corridos
+4. **HIERARQUIA**: Respeite os tamanhos e pesos definidos para cada elemento
+5. Aplique os gradientes nos elementos de destaque
+6. Mantenha consistência visual em todos os componentes
+7. Implemente estados de hover, focus e active conforme especificado
+8. Use as variáveis CSS definidas (tanto cores quanto tipografia)
+9. Garanta responsividade mobile-first
+10. Mantenha acessibilidade em mente
+
+### Import das Fontes
+Sempre importe as fontes no início do CSS ou HTML:
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Axiforma:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap');
+```
+
+Quando em dúvida sobre cores, tipografia ou estilos, consulte sempre estas regras e mantenha a identidade visual da marca consistente em todo o projeto.

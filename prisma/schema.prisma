@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Club {
+  id                 String    @id @default(uuid())
+  name               String
+  country            String
+  state              String
+  city               String
+  subdomain          String    @unique
+  logoUrl            String?
+  isPublic           Boolean   @default(false)
+  
+  active             Boolean   @default(true)
+  about              String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Relations
+  advertisementBanners AdvertisementBannerClub[]
+  theme Theme?
+  replays Replay[]
+}
+
+model Theme {
+  id                 String    @id @default(uuid())
+  
+  // Theme colors
+  primaryColor       String
+  primaryVariant     String
+  secondaryColor     String
+  secondaryVariant   String
+  surfaceColor       String
+  backgroundColor    String
+  errorColor         String
+  
+  // Text colors
+  onPrimaryColor     String
+  onSecondaryColor   String
+  onSurfaceColor     String
+  onBackgroundColor  String
+  onErrorColor       String
+  
+
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Club relation
+  clubId             String    @unique
+  club               Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+}
+
+model AdvertisementBanner {
+  id           String    @id @default(uuid())
+  title        String?
+  subtitle     String?
+  buttonText   String?
+  buttonLink   String?
+  imageDesktop String?   // Image for horizontal devices (content shifted right)
+  imageMobile  String?   // Image for vertical devices (centered content)
+  isActive     Boolean   @default(true)
+  priority     Int       @default(0)
+  startDate    DateTime?
+  endDate      DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Many-to-many relation with clubs
+  clubs        AdvertisementBannerClub[]
+}
+
+// Junction table for many-to-many relationship between AdvertisementBanner and Club
+model AdvertisementBannerClub {
+  id                    String              @id @default(uuid())
+  advertisementBannerId String
+  clubId                String
+  createdAt             DateTime            @default(now())
+  
+  // Relations
+  advertisementBanner   AdvertisementBanner @relation(fields: [advertisementBannerId], references: [id], onDelete: Cascade)
+  club                  Club                @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  
+  // Composite unique constraint to prevent duplicate associations
+  @@unique([advertisementBannerId, clubId])
+  
+  // Indexes for better query performance
+  @@index([advertisementBannerId])
+  @@index([clubId])
+}
+
+model Replay {
+  id String @id @default(uuid())
+  url String
+  date String
+  time String
+  thumbnailUrl String?
+  overlay String?
+  clubId String
+  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  court String
+  rotation Int @default(0) // 0, 90, 180, or 270 degrees
+  views Int @default(0)
+  likes Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Indexes for better query performance
+  @@index([clubId, date, court]) // Composite index for main queries
+  @@index([clubId, date, time]) // Index for time-based queries
+  @@index([date]) // Simple index for date queries
+  @@index([court]) // Index for court filtering
+  @@index([createdAt]) // Index for ordering by creation date
+}

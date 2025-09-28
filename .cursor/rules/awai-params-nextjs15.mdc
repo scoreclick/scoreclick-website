@@ -1,0 +1,96 @@
+---
+description: "Next.js 15 params must be awaited - params is now a Promise in page/layout components, route handlers, and generateMetadata functions"
+globs:
+  - "**/*.{js,jsx,ts,tsx}"
+alwaysApply: true
+---
+
+In Next.js 15, `params` is now a Promise and must be awaited in:
+- Page components
+- Layout components  
+- Route handlers (GET, POST, etc.)
+- generateMetadata functions
+- generateStaticParams functions
+
+## Examples:
+
+### Page Components
+```typescript
+// ❌ Wrong (Next.js 14 style)
+export default function Page({ params }: { params: { slug: string } }) {
+  return <div>{params.slug}</div>
+}
+
+// ✅ Correct (Next.js 15)
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params
+  return <div>{resolvedParams.slug}</div>
+}
+```
+
+### Route Handlers
+```typescript
+// ❌ Wrong
+export async function GET(request: Request, { params }: { params: { id: string } }) {
+  return Response.json({ id: params.id })
+}
+
+// ✅ Correct
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  return Response.json({ id })
+}
+```
+
+### generateMetadata
+```typescript
+// ❌ Wrong
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  return { title: params.slug }
+}
+
+// ✅ Correct
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  return { title: slug }
+}
+```
+
+### Layout Components
+```typescript
+// ❌ Wrong
+export default function Layout({ 
+  children, 
+  params 
+}: { 
+  children: React.ReactNode
+  params: { locale: string }
+}) {
+  return <div data-locale={params.locale}>{children}</div>
+}
+
+// ✅ Correct
+export default async function Layout({ 
+  children, 
+  params 
+}: { 
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  return <div data-locale={locale}>{children}</div>
+}
+```
+
+## Key Rules:
+1. Always type `params` as `Promise<YourParamsType>`
+2. Always `await params` before using
+3. Make the component/function `async`
+4. Use destructuring after awaiting for cleaner code
+5. This applies to both App Router pages and API routes
+
+## Migration Pattern:
+1. Add `async` to function signature
+2. Change `params: { ... }` to `params: Promise<{ ... }>`
+3. Add `const resolvedParams = await params` or `const { prop } = await params`
+4. Replace `params.prop` with `resolvedParams.prop` or destructured variable
