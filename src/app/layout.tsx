@@ -8,9 +8,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ScoreClick - Plataforma de Gestão Esportiva",
-  description: "A plataforma completa para gestão de times, jogadores e competições esportivas. Organize, gerencie e acompanhe o desempenho do seu time.",
-  keywords: ["esporte", "gestão", "times", "competições", "scoreclick"],
+  title: "ScoreClick - O Sistema de Replay de Lances.",
+  description: "O sistema de replay de lances mais completo do mercado. Capture a jogada completa, com total flexibilidade para ajustar a duração conforme a necessidade do clube.",
+  keywords: ["scoreclick", "replay", "lance", "jogada"],
   authors: [{ name: "ScoreClick Team" }],
   creator: "ScoreClick",
   publisher: "ScoreClick",
@@ -21,18 +21,12 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://scoreclick.com"),
   openGraph: {
-    title: "ScoreClick - Plataforma de Gestão Esportiva",
-    description: "A plataforma completa para gestão de times, jogadores e competições esportivas.",
+    title: "ScoreClick - O Sistema de Replay de Lances.",
+    description: "O sistema de replay de lances mais completo do mercado. Capture a jogada completa, com total flexibilidade para ajustar a duração conforme a necessidade do clube.",
     url: "https://scoreclick.com",
     siteName: "ScoreClick",
     locale: "pt_BR",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "ScoreClick - Plataforma de Gestão Esportiva",
-    description: "A plataforma completa para gestão de times, jogadores e competições esportivas.",
-    creator: "@scoreclick",
   },
   robots: {
     index: true,
