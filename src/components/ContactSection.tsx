@@ -69,7 +69,7 @@ export default function ContactSection() {
 
           {/* Botão WhatsApp */}
           <div className="flex flex-col items-center justify-center space-y-6">
-            <Card className="p-8 text-center bg-gradient-to-br from-[#e5edea] to-[#f0f5f3] border-[#e5edea] shadow-lg rounded-none">
+            <Card className="w-[600px] max-w-[90vw] p-8 text-center bg-gradient-to-br from-[#e5edea] to-[#f0f5f3] border-[#e5edea] shadow-lg rounded-none">
               <div className="mb-6">
                 <div className="w-20 h-20 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center">
                   <MessageCircle className="w-10 h-10 text-white" />
@@ -112,7 +112,7 @@ export default function ContactSection() {
           </div>
           {/* Informações de Contato */}
           <div className="space-y-6">            
-            <div className="grid gap-0">
+            <div className="grid gap-0 w-[600px] max-w-[90vw] mx-auto">
               {contactInfo.map((contact, index) => {
                 const IconComponent = contact.icon
                 return (
