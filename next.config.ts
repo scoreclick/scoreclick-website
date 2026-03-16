@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/club-logos/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'f005.backblazeb2.com',
+        pathname: '/**',
+      },
     ],
   },
 };
