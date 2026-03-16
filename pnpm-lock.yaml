@@ -30,7 +30,7 @@ importers:
         specifier: ^0.544.0
         version: 0.544.0(react@19.1.0)
       next:
-        specifier: ^15.5.5
+        specifier: 15.5.5
       react:
         specifier: 19.1.0
         version: 19.1.0
