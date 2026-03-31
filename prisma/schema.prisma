@@ -9,112 +9,533 @@ datasource db {
 }
 
 model Club {
-  id                 String    @id @default(uuid())
-  name               String
-  country            String
-  state              String
-  city               String
-  subdomain          String    @unique
-  logoUrl            String?
-  isPublic           Boolean   @default(false)
-  
-  active             Boolean   @default(true)
-  about              String?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-
-  // Relations
+  id                   String                    @id @default(uuid())
+  name                 String
+  country              String
+  state                String
+  city                 String
+  subdomain            String                    @unique
+  logoUrl              String?
+  isPublic             Boolean                   @default(false)
+  active               Boolean                   @default(true)
+  about                String?
+  createdAt            DateTime                  @default(now())
+  updatedAt            DateTime                  @updatedAt
+  youtubeChannelId     String?
   advertisementBanners AdvertisementBannerClub[]
-  theme Theme?
-  replays Replay[]
+  Camera               Camera[]
+  YouTubeChannel       YouTubeChannel?           @relation(fields: [youtubeChannelId], references: [id])
+  ClubMember           ClubMember[]
+  MembershipRequest    MembershipRequest[]
+  RacketPreset         RacketPreset[]
+  Recorder             Recorder[]
+  replays              Replay[]
+  ReplayRemovalRequest ReplayRemovalRequest[]
+  Scoreboard           Scoreboard[]
+  theme                Theme?
+  TournamentClub       TournamentClub[]
+
+  @@index([youtubeChannelId])
 }
 
 model Theme {
-  id                 String    @id @default(uuid())
-  
-  // Theme colors
-  primaryColor       String
-  primaryVariant     String
-  secondaryColor     String
-  secondaryVariant   String
-  surfaceColor       String
-  backgroundColor    String
-  errorColor         String
-  
-  // Text colors
-  onPrimaryColor     String
-  onSecondaryColor   String
-  onSurfaceColor     String
-  onBackgroundColor  String
-  onErrorColor       String
-  
-
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-
-  // Club relation
-  clubId             String    @unique
-  club               Club      @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  id                String   @id @default(uuid())
+  primaryColor      String
+  primaryVariant    String
+  secondaryColor    String
+  secondaryVariant  String
+  surfaceColor      String
+  backgroundColor   String
+  errorColor        String
+  onPrimaryColor    String
+  onSecondaryColor  String
+  onSurfaceColor    String
+  onBackgroundColor String
+  onErrorColor      String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  clubId            String   @unique
+  club              Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
 }
 
 model AdvertisementBanner {
-  id           String    @id @default(uuid())
+  id           String                    @id @default(uuid())
   title        String?
   subtitle     String?
   buttonText   String?
   buttonLink   String?
-  imageDesktop String?   // Image for horizontal devices (content shifted right)
-  imageMobile  String?   // Image for vertical devices (centered content)
-  isActive     Boolean   @default(true)
-  priority     Int       @default(0)
+  imageDesktop String?
+  imageMobile  String?
+  isActive     Boolean                   @default(true)
+  priority     Int                       @default(0)
   startDate    DateTime?
   endDate      DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-
-  // Many-to-many relation with clubs
+  createdAt    DateTime                  @default(now())
+  updatedAt    DateTime                  @updatedAt
   clubs        AdvertisementBannerClub[]
 }
 
-// Junction table for many-to-many relationship between AdvertisementBanner and Club
 model AdvertisementBannerClub {
   id                    String              @id @default(uuid())
   advertisementBannerId String
   clubId                String
   createdAt             DateTime            @default(now())
-  
-  // Relations
   advertisementBanner   AdvertisementBanner @relation(fields: [advertisementBannerId], references: [id], onDelete: Cascade)
   club                  Club                @relation(fields: [clubId], references: [id], onDelete: Cascade)
-  
-  // Composite unique constraint to prevent duplicate associations
+
   @@unique([advertisementBannerId, clubId])
-  
-  // Indexes for better query performance
   @@index([advertisementBannerId])
   @@index([clubId])
 }
 
 model Replay {
-  id String @id @default(uuid())
-  url String
-  date String
-  time String
-  thumbnailUrl String?
-  overlay String?
-  clubId String
-  club Club @relation(fields: [clubId], references: [id], onDelete: Cascade)
-  court String
-  rotation Int @default(0) // 0, 90, 180, or 270 degrees
-  views Int @default(0)
-  likes Int @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                   String                 @id @default(uuid())
+  url                  String
+  date                 String
+  time                 String
+  thumbnailUrl         String?
+  overlay              String?
+  clubId               String
+  court                String
+  rotation             Int                    @default(0)
+  views                Int                    @default(0)
+  likes                Int                    @default(0)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  overlayedUrl         String?                @default("")
+  status               ReplayStatus           @default(PENDING)
+  club                 Club                   @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  ReplayRemovalRequest ReplayRemovalRequest[]
+  UserSavedReplay      UserSavedReplay[]
 
-  // Indexes for better query performance
-  @@index([clubId, date, court]) // Composite index for main queries
-  @@index([clubId, date, time]) // Index for time-based queries
-  @@index([date]) // Simple index for date queries
-  @@index([court]) // Index for court filtering
-  @@index([createdAt]) // Index for ordering by creation date
+  @@index([clubId, date, court])
+  @@index([clubId, date, time])
+  @@index([date])
+  @@index([court])
+  @@index([createdAt])
+}
+
+model Account {
+  id                String   @id
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime
+  User              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Camera {
+  id                String            @id
+  name              String
+  user              String            @default("scoreclick")
+  password          String            @default("scoreclick@123")
+  ip                String
+  recordingProtocol String            @default("rtsp")
+  port              String            @default("554")
+  urlRtspPath       String
+  recordingPath     String            @default("/home/scoreclick/videos/recording")
+  resultPath        String            @default("/home/scoreclick/videos/result")
+  streamUrl         String?
+  streamKey         String?
+  replayDuration    Int               @default(60)
+  gpioPin           Int?
+  rfSignals         Json              @default("[]")
+  enableAudio       Boolean           @default(true)
+  court             String
+  rotation          Int               @default(0)
+  overlay           String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime
+  clubId            String
+  recorderId        String
+  exampleImage      String?
+  Club              Club              @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  Recorder          Recorder          @relation(fields: [recorderId], references: [id], onDelete: Cascade)
+  ScheduledStream   ScheduledStream[]
+  Scoreboard        Scoreboard?
+
+  @@index([clubId])
+  @@index([court])
+  @@index([name])
+  @@index([recorderId])
+}
+
+model ClubMember {
+  id        String   @id
+  userId    String
+  clubId    String
+  role      ClubRole @default(MEMBER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  Club      Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, clubId])
+  @@index([clubId])
+  @@index([userId])
+}
+
+model MembershipRequest {
+  id        String                  @id
+  userId    String
+  clubId    String
+  status    MembershipRequestStatus @default(PENDING)
+  message   String?
+  createdAt DateTime                @default(now())
+  updatedAt DateTime
+  Club      Club                    @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  User      User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([clubId])
+  @@index([userId, clubId, status])
+  @@index([userId])
+}
+
+model RacketGame {
+  id                       String     @id
+  scoreboardId             String     @unique
+  name                     String     @default("")
+  sportType                String     @default("racket")
+  gamesToWinSet            Int        @default(6)
+  gamesToSetTiebreak       Int        @default(6)
+  setsToWinMatch           Int        @default(2)
+  isFinalTiebreak          Boolean    @default(false)
+  scoringMode              String     @default("games_only")
+  deuceRule                String     @default("golden_point")
+  pointsToWinTiebreak      Int        @default(7)
+  pointsToWinSupertiebreak Int        @default(10)
+  isDoubles                Boolean    @default(false)
+  teamAPlayer1             String     @default("")
+  teamAPlayer2             String?
+  teamBPlayer1             String     @default("")
+  teamBPlayer2             String?
+  startServing             String     @default("A")
+  currentServing           String     @default("A")
+  teamASets                Int        @default(0)
+  teamBSets                Int        @default(0)
+  teamAGames               Int        @default(0)
+  teamBGames               Int        @default(0)
+  teamAPoints              Int        @default(0)
+  teamBPoints              Int        @default(0)
+  deuceCount               Int        @default(0)
+  setsDetail               Json       @default("[]")
+  isTiebreak               Boolean    @default(false)
+  isSupertiebreak          Boolean    @default(false)
+  tiebreakPointsA          Int        @default(0)
+  tiebreakPointsB          Int        @default(0)
+  isWarming                Boolean    @default(false)
+  warmingDuration          Int        @default(300)
+  warmingStartedAt         DateTime?
+  startedAt                DateTime?
+  finishedAt               DateTime?
+  winner                   String?
+  pendingAction            String?
+  status                   GameStatus @default(CREATED)
+  createdAt                DateTime   @default(now())
+  updatedAt                DateTime
+  Scoreboard               Scoreboard @relation(fields: [scoreboardId], references: [id], onDelete: Cascade)
+
+  @@index([scoreboardId])
+  @@index([status])
+}
+
+model RacketPreset {
+  id                       String   @id
+  name                     String
+  description              String?
+  gamesToWinSet            Int      @default(6)
+  gamesToSetTiebreak       Int      @default(6)
+  setsToWinMatch           Int      @default(2)
+  isFinalTiebreak          Boolean  @default(false)
+  pointsToWinTiebreak      Int      @default(7)
+  pointsToWinSupertiebreak Int      @default(10)
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime
+  clubId                   String
+  Club                     Club     @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@index([clubId])
+}
+
+model Recorder {
+  id            String        @id
+  hostname      String
+  username      String
+  password      String
+  port          Int           @default(22)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime
+  operationMode OperationMode @default(GPIO)
+  clubId        String
+  Camera        Camera[]
+  Club          Club          @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+  @@index([hostname])
+  @@index([port])
+  @@index([updatedAt])
+  @@index([username])
+}
+
+model ReplayRemovalRequest {
+  id        String                     @id
+  replayId  String
+  userId    String
+  clubId    String
+  message   String?
+  status    ReplayRemovalRequestStatus @default(PENDING)
+  createdAt DateTime                   @default(now())
+  updatedAt DateTime
+  Club      Club                       @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  Replay    Replay                     @relation(fields: [replayId], references: [id], onDelete: Cascade)
+  User      User                       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([clubId, status])
+  @@index([replayId])
+  @@index([userId])
+}
+
+model ScheduledStream {
+  id                 String         @id
+  cameraId           String
+  youtubeChannelId   String
+  broadcastId        String?
+  streamId           String?
+  title              String
+  description        String?
+  scheduledStartTime DateTime
+  privacy            StreamPrivacy  @default(PUBLIC)
+  category           String         @default("Sports")
+  madeForKids        Boolean        @default(false)
+  ageRestricted      Boolean        @default(false)
+  streamKey          String?
+  streamUrl          String?
+  watchUrl           String?
+  status             StreamStatus   @default(PENDING)
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime
+  tournamentId       String?
+  streamType         StreamType     @default(NORMAL)
+  scheduledEndTime   DateTime
+  createdByUserId    String?
+  thumbnail          String?
+  Camera             Camera         @relation(fields: [cameraId], references: [id], onDelete: Cascade)
+  User               User?          @relation(fields: [createdByUserId], references: [id])
+  Tournament         Tournament?    @relation(fields: [tournamentId], references: [id])
+  YouTubeChannel     YouTubeChannel @relation(fields: [youtubeChannelId], references: [id], onDelete: Cascade)
+
+  @@index([cameraId])
+  @@index([createdByUserId])
+  @@index([scheduledStartTime])
+  @@index([status])
+  @@index([tournamentId])
+  @@index([youtubeChannelId])
+}
+
+model Scoreboard {
+  id         String         @id
+  hostname   String
+  type       ScoreboardType @default(RACKET)
+  online     Boolean        @default(false)
+  lastSeenAt DateTime?
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime
+  clubId     String
+  apiPort    Int            @default(8000)
+  name       String
+  cameraId   String?        @unique
+  RacketGame RacketGame?
+  Camera     Camera?        @relation(fields: [cameraId], references: [id])
+  Club       Club           @relation(fields: [clubId], references: [id], onDelete: Cascade)
+
+  @@index([clubId])
+  @@index([hostname])
+}
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Tournament {
+  id               String            @id
+  name             String
+  description      String?
+  youtubeChannelId String
+  thumbnailMode    ThumbnailMode     @default(SINGLE)
+  singleThumbnail  String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime
+  ScheduledStream  ScheduledStream[]
+  YouTubeChannel   YouTubeChannel    @relation(fields: [youtubeChannelId], references: [id], onDelete: Cascade)
+  TournamentClub   TournamentClub[]
+
+  @@index([youtubeChannelId])
+}
+
+model TournamentClub {
+  id           String     @id
+  tournamentId String
+  clubId       String
+  createdAt    DateTime   @default(now())
+  Club         Club       @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  Tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+
+  @@unique([tournamentId, clubId])
+  @@index([clubId])
+  @@index([tournamentId])
+}
+
+model User {
+  id                   String                 @id
+  email                String                 @unique
+  emailVerified        DateTime?
+  password             String?
+  name                 String?
+  image                String?
+  role                 PlatformRole           @default(USER)
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime
+  Account              Account[]
+  ClubMember           ClubMember[]
+  MembershipRequest    MembershipRequest[]
+  ReplayRemovalRequest ReplayRemovalRequest[]
+  ScheduledStream      ScheduledStream[]
+  Session              Session[]
+  UserSavedReplay      UserSavedReplay[]
+}
+
+model UserSavedReplay {
+  id         String                    @id
+  userId     String
+  replayId   String
+  visibility UserSavedReplayVisibility @default(PUBLIC)
+  createdAt  DateTime                  @default(now())
+  updatedAt  DateTime
+  Replay     Replay                    @relation(fields: [replayId], references: [id], onDelete: Cascade)
+  User       User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, replayId])
+  @@index([replayId])
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model YouTubeChannel {
+  id               String            @id
+  googleId         String            @unique
+  channelId        String
+  channelName      String
+  channelThumbnail String?
+  accessToken      String
+  refreshToken     String
+  tokenExpiry      DateTime
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime
+  Club             Club[]
+  ScheduledStream  ScheduledStream[]
+  Tournament       Tournament[]
+}
+
+enum ClubRole {
+  OWNER
+  MANAGER
+  MEMBER
+}
+
+enum GameStatus {
+  CREATED
+  IN_PROGRESS
+  FINISHED
+}
+
+enum MembershipRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum OperationMode {
+  GPIO
+  RF
+}
+
+enum PlatformRole {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
+
+enum ReplayRemovalRequestStatus {
+  PENDING
+  DISMISSED
+  REPLAY_REMOVED
+}
+
+enum ReplayStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum ScoreboardType {
+  RACKET
+}
+
+enum StreamPrivacy {
+  PUBLIC
+  PRIVATE
+  UNLISTED
+}
+
+enum StreamStatus {
+  SCHEDULED
+  READY
+  LIVE
+  COMPLETE
+  CANCELLED
+  PENDING
+  PROVISIONING
+  PROVISION_FAILED
+}
+
+enum StreamType {
+  NORMAL
+  OVERLAY
+  SCOREBOARD
+}
+
+enum ThumbnailMode {
+  SINGLE
+  PER_COURT
+  PER_PERIOD
+}
+
+enum UserSavedReplayVisibility {
+  PUBLIC
+  PRIVATE
 }
