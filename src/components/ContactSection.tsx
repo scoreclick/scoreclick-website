@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Mail, Phone, Instagram, Youtube, MessageCircle } from 'lucide-react'
@@ -143,6 +144,27 @@ export default function ContactSection() {
           </div>
 
         </div>
+
+        <nav
+          className="mt-14 pt-8 border-t border-[#e5edea] flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-gray-500 font-[var(--font-secondary)]"
+          aria-label="Documentos legais"
+        >
+          <Link
+            href="/politica-de-privacidade"
+            className="hover:text-[#068258] transition-colors underline-offset-2 hover:underline"
+          >
+            Política de Privacidade
+          </Link>
+          <span className="text-gray-300 select-none" aria-hidden>
+            ·
+          </span>
+          <Link
+            href="/termos-de-servico"
+            className="hover:text-[#068258] transition-colors underline-offset-2 hover:underline"
+          >
+            Termos de Serviço
+          </Link>
+        </nav>
       </div>
     </section>
   )
