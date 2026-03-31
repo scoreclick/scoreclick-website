@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card'
 import { Mail, Phone, Instagram, Youtube, MessageCircle } from 'lucide-react'
 
 export default function ContactSection() {
-  const whatsappMessage = "Olá, quero falar com a ScoreClick, vim através do Website!"
+  const whatsappMessage = "Olá, quero falar com a Score Click, vim através do Website!"
   const whatsappUrl = `https://wa.me/5547999803969?text=${encodeURIComponent(whatsappMessage)}`
 
   const contactInfo = [

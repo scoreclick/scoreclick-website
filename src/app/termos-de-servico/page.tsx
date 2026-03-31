@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import LegalPageLayout from '@/components/LegalPageLayout'
 
 export const metadata: Metadata = {
-  title: 'Termos de Serviço | ScoreClick',
+  title: 'Termos de Serviço | Score Click',
   description:
-    'Condições de uso do site ScoreClick, serviços de informação e canais de contato.',
+    'Condições de uso do site Score Click, serviços de informação e canais de contato.',
   openGraph: {
-    title: 'Termos de Serviço | ScoreClick',
+    title: 'Termos de Serviço | Score Click',
     description:
-      'Condições de uso do site ScoreClick, serviços de informação e canais de contato.',
-    url: 'https://scoreclick.com/termos-de-servico',
+      'Condições de uso do site Score Click, serviços de informação e canais de contato.',
+    url: 'https://scoreclick.com.br/termos-de-servico',
     locale: 'pt_BR',
     type: 'website',
   },
@@ -22,21 +22,21 @@ export default function TermosDeServicoPage() {
   return (
     <LegalPageLayout title="Termos de Serviço">
       <p>
-        Estes Termos de Serviço regem o uso do site institucional da ScoreClick e das
+        Estes Termos de Serviço regem o uso do site institucional da Score Click e das
         funcionalidades disponibilizadas por meio dele. Ao acessar ou utilizar o site, você concorda
         com estes termos. Se não concordar, interrompa o uso.
       </p>
 
       <h2>1. Definições</h2>
       <p>
-        &quot;ScoreClick&quot;, &quot;nós&quot; ou &quot;empresa&quot; refere-se à titular do site e
+        &quot;Score Click&quot;, &quot;nós&quot; ou &quot;empresa&quot; refere-se à titular do site e
         da marca. &quot;Usuário&quot; ou &quot;você&quot; é qualquer pessoa que acesse o site.
       </p>
 
       <h2>2. Natureza do site</h2>
       <p>
         O site tem caráter informativo e de divulgação de produtos e serviços relacionados ao
-        ecossistema ScoreClick (por exemplo, sistema de replay de lances). A disponibilização de
+        ecossistema Score Click (por exemplo, sistema de replay de lances). A disponibilização de
         informações sobre clubes ou links para ambientes de terceiros não constitui endosso
         automático nem garantia de disponibilidade contínua de serviços externos.
       </p>
@@ -65,7 +65,7 @@ export default function TermosDeServicoPage() {
       <h2>5. Propriedade intelectual</h2>
       <p>
         Marcas, logotipos, textos, imagens, layout e demais conteúdos do site são de titularidade da
-        ScoreClick ou de licenciantes, salvo indicação em contrário. É vedada a reprodução sem
+        Score Click ou de licenciantes, salvo indicação em contrário. É vedada a reprodução sem
         autorização prévia, exceto uso pessoal e não comercial que não prejudique os titulares.
       </p>
 
@@ -80,7 +80,7 @@ export default function TermosDeServicoPage() {
       <p>
         O site e seu conteúdo são fornecidos &quot;no estado em que se encontram&quot;. Empregamos
         esforços razoáveis para manter informações atualizadas, mas não garantimos ausência de erros
-        ou interrupções. Na máxima extensão permitida pela lei aplicável, a ScoreClick não se
+        ou interrupções. Na máxima extensão permitida pela lei aplicável, a Score Click não se
         responsabiliza por danos indiretos, lucros cessantes ou perdas decorrentes do uso ou
         impossibilidade de uso do site, salvo dolo ou culpa grave comprovados.
       </p>

@@ -39,7 +39,7 @@ const FeaturesSection = () => {
       icon: Smartphone
     },
     {
-        title: "Gravador ScoreClick",
+        title: "Gravador Score Click",
         description: "Desenvolvemos e fabricamos nosso próprio gravador, o que nos confere total autonomia tecnológica para implementar soluções inovadoras e exclusivos recursos que se destacam no mercado.",
         bgColor: "bg-[#068258]", // Verde escuro
         textColor: "!text-white",
@@ -67,7 +67,7 @@ const FeaturesSection = () => {
           {/* Header da Seção - Mobile */}
           <div className="text-center mb-16">
             <h2 className="text-white font-[var(--font-primary)] font-bold text-lg mb-6">
-              Confira o que a ScoreClick oferece de melhor
+              Confira o que a Score Click oferece de melhor
             </h2>
             <p className="text-white/90 font-[var(--font-secondary)] text-lg max-w-4xl mx-auto mb-8 leading-relaxed">
               Estes são os diferenciais que nos tornam únicos no mercado e a melhor opção para o seu clube.
@@ -128,7 +128,7 @@ const FeaturesSection = () => {
           <div className="md:col-span-5 lg:col-span-5 translate-y-20">
             <div className="text-left">
               <h2 className="text-white font-[var(--font-primary)] font-bold text-lg mb-6 leading-tight">
-                Confira o que a ScoreClick oferece de melhor
+                Confira o que a Score Click oferece de melhor
               </h2>
               <p className="text-white/90 font-[var(--font-secondary)] text-lg lg:text-xl mb-8 leading-relaxed">
                 Estes são os diferenciais que nos tornam únicos no mercado e a melhor opção para o seu clube.

@@ -2,14 +2,14 @@ import type { Metadata } from 'next'
 import LegalPageLayout from '@/components/LegalPageLayout'
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidade | ScoreClick',
+  title: 'Política de Privacidade | Score Click',
   description:
-    'Como a ScoreClick trata dados pessoais no site e canais de contato, em conformidade com a LGPD.',
+    'Como a Score Click trata dados pessoais no site e canais de contato, em conformidade com a LGPD.',
   openGraph: {
-    title: 'Política de Privacidade | ScoreClick',
+    title: 'Política de Privacidade | Score Click',
     description:
-      'Como a ScoreClick trata dados pessoais no site e canais de contato, em conformidade com a LGPD.',
-    url: 'https://scoreclick.com/politica-de-privacidade',
+      'Como a Score Click trata dados pessoais no site e canais de contato, em conformidade com a LGPD.',
+    url: 'https://scoreclick.com.br/politica-de-privacidade',
     locale: 'pt_BR',
     type: 'website',
   },
@@ -22,7 +22,7 @@ export default function PoliticaDePrivacidadePage() {
   return (
     <LegalPageLayout title="Política de Privacidade">
       <p>
-        Esta Política de Privacidade descreve como a ScoreClick (&quot;nós&quot;, &quot;nosso&quot; ou
+        Esta Política de Privacidade descreve como a Score Click (&quot;nós&quot;, &quot;nosso&quot; ou
         &quot;empresa&quot;) trata dados pessoais quando você utiliza nosso site institucional,
         funcionalidades como busca de clubes e canais de contato. Ao utilizar o site, você declara
         ter lido e compreendido esta política.
@@ -30,7 +30,7 @@ export default function PoliticaDePrivacidadePage() {
 
       <h2>1. Controlador dos dados</h2>
       <p>
-        O controlador dos dados pessoais tratados neste contexto é a ScoreClick. Para exercer seus
+        O controlador dos dados pessoais tratados neste contexto é a Score Click. Para exercer seus
         direitos ou esclarecer dúvidas sobre privacidade, utilize o e-mail{' '}
         <a href="mailto:contato@scoreclick.com.br">contato@scoreclick.com.br</a>.
       </p>

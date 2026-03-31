@@ -16,7 +16,7 @@ export default function LegalPageLayout({ title, children }: LegalPageLayoutProp
             {title}
           </h1>
           <p className="text-sm text-muted-foreground font-[var(--font-secondary)]">
-            ScoreClick — última atualização: 31 de março de 2026
+            Score Click — última atualização: 31 de março de 2026
           </p>
         </header>
         <div className="font-[var(--font-secondary)] text-foreground space-y-4 text-[var(--font-size-body)] leading-relaxed [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-[#181717] [&_h2]:font-[var(--font-primary)] [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:pt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-2 [&_a]:text-[#04a668] [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:text-[#068258]">

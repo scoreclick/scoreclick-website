@@ -8,23 +8,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ScoreClick - O Sistema de Replay de Lances.",
+  title: "Score Click - O Sistema de Replay de Lances.",
   description: "O sistema de replay de lances mais completo do mercado. Capture a jogada completa, com total flexibilidade para ajustar a duração conforme a necessidade do clube.",
-  keywords: ["scoreclick", "replay", "lance", "jogada"],
-  authors: [{ name: "ScoreClick Team" }],
-  creator: "ScoreClick",
-  publisher: "ScoreClick",
+  keywords: ["scoreclick", "score click", "replay", "lance", "jogada"],
+  authors: [{ name: "Score Click" }],
+  creator: "Score Click",
+  publisher: "Score Click",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://scoreclick.com"),
+  metadataBase: new URL("https://scoreclick.com.br"),
   openGraph: {
-    title: "ScoreClick - O Sistema de Replay de Lances.",
+    title: "Score Click - O Sistema de Replay de Lances.",
     description: "O sistema de replay de lances mais completo do mercado. Capture a jogada completa, com total flexibilidade para ajustar a duração conforme a necessidade do clube.",
-    url: "https://scoreclick.com",
-    siteName: "ScoreClick",
+    url: "https://scoreclick.com.br",
+    siteName: "Score Click",
     locale: "pt_BR",
     type: "website",
   },
